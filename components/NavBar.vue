@@ -14,10 +14,10 @@ const isDark = computed({
     <nav
         class="bg-background/75 backdrop-blur border-b border-gray-200 dark:border-gray-800 -mb-px sticky top-0 z-50 px-4 sm:px-6 py-3">
         <div class="flex items-center justify-between gap-3 h-12">
-            <div class="flex items-center justify-center">
+            <NuxtLink to="/" class="flex items-center justify-center">
                 <Icon name="ph:hammer-duotone" class="text-primary" />
                 <h1 class="text-2xl font-semibold ml-3">Workify</h1>
-            </div>
+            </NuxtLink>
             <ClientOnly>
                 <UButton :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'" variant="soft"
                     aria-label="Theme" @click="isDark = !isDark" />
