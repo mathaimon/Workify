@@ -19,8 +19,10 @@ const isDark = computed({
                 <h1 class="text-2xl font-semibold ml-3">Workify</h1>
             </NuxtLink>
             <ClientOnly>
-                <UButton :icon="isDark ? 'i-heroicons-moon-20-solid' : 'i-heroicons-sun-20-solid'" variant="soft"
-                    aria-label="Theme" @click="isDark = !isDark" />
+                <UButton variant="soft" aria-label="Theme" @click="isDark = !isDark">
+                    <UIcon :name="isDark ? 'material-symbols:dark-mode' : 'material-symbols:light-mode'" size="22px"
+                        dynamic />
+                </UButton>
             </ClientOnly>
         </div>
     </nav>
