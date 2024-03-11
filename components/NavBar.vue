@@ -8,6 +8,35 @@ const isDark = computed({
         colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
     }
 })
+
+// Toggle darkmode with keyboard shortcut
+const ctrlPressed = ref(false);
+
+const keydownHandler = (event) => {
+    if (event.key === 'Control') {
+        ctrlPressed.value = true;
+    }
+    if (ctrlPressed.value && event.key === '/') {
+        event.preventDefault(); // Prevent the browser's default save action
+        isDark.value = !isDark.value
+    }
+};
+
+const keyupHandler = (event) => {
+    if (event.key === 'Control') {
+        ctrlPressed.value = false;
+    }
+};
+
+onMounted(() => {
+    window.addEventListener('keydown', keydownHandler);
+    window.addEventListener('keyup', keyupHandler);
+});
+
+onBeforeUnmount(() => {
+    window.removeEventListener('keydown', keydownHandler);
+    window.removeEventListener('keyup', keyupHandler);
+});
 </script>
 
 <template>
