@@ -14,6 +14,7 @@ const workTypes = [
     }
 ]
 const workType = ref("in-office")
+const disableClockIn = ref(false)
 
 const startTime = ref();
 const hours = ref(0);
@@ -43,10 +44,12 @@ watchEffect(() => {
         updateTime()
         interval = setInterval(updateTime, 1000);
         workType.value = workHours.lastClockIn.value["workType"]
+        disableClockIn.value = false
     }
 })
 
 const clockIn = () => {
+    disableClockIn.value = true
     workHours.clockIn({
         isClockedIn: true,
         clockedInTime: new Date().toISOString(),
@@ -76,7 +79,8 @@ const clockOut = () => {
                     <USelect :disabled="isClockedIn" placeholder="Work Type" :options="workTypes" v-model="workType"
                         color="primary" variant="outline" size="xl" />
                 </div>
-                <UButton v-if="!isClockedIn" @click="clockIn" variant="solid" size="xl" class="flex justify-center">
+                <UButton v-if="!isClockedIn" @click="clockIn" :disabled="disableClockIn" variant="solid" size="xl"
+                    class="flex justify-center">
                     Clock In
                 </UButton>
                 <UButton v-if="isClockedIn" @click="clockOut" variant="solid" size="xl" class="flex justify-center">
