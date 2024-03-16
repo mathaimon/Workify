@@ -45,6 +45,18 @@ watchEffect(() => {
         workType.value = workHours.lastClockIn.value["workType"]
     }
 })
+
+const clockIn = () => {
+    workHours.clockIn({
+        isClockedIn: true,
+        clockedInTime: new Date().toISOString(),
+        workType: workType.value
+    })
+}
+
+const clockOut = () => {
+    workHours.clockOut()
+}
 </script>
 
 <template>
@@ -64,9 +76,11 @@ watchEffect(() => {
                     <USelect :disabled="isClockedIn" placeholder="Work Type" :options="workTypes" v-model="workType"
                         color="primary" variant="outline" size="xl" />
                 </div>
-                <UButton v-if="!isClockedIn" variant="solid" size="xl" class="flex justify-center">Clock In
+                <UButton v-if="!isClockedIn" @click="clockIn" variant="solid" size="xl" class="flex justify-center">
+                    Clock In
                 </UButton>
-                <UButton v-if="isClockedIn" variant="solid" size="xl" class="flex justify-center">Clock Out
+                <UButton v-if="isClockedIn" @click="clockOut" variant="solid" size="xl" class="flex justify-center">
+                    Clock Out
                 </UButton>
             </div>
         </UCard>
