@@ -1,75 +1,15 @@
-# Nuxt 3 Minimal Starter
+# Workify
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Workify is a platform to add monitor and analyze your **Daily Work Hours** . 
 
-## Setup
+## Features
+- [x] Clock-In & Clock-Out of work
+- [ ] Display work hours on day to day basis
+- [ ] Sort data according to date, work type etc.
+- [ ] Edit previous data
+- [ ] Visualize work hours
 
-Make sure to install the dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## Built using
+[![Nuxtjs](https://img.shields.io/badge/Nuxt-002E3B?style=for-the-badge&logo=nuxtdotjs&logoColor=#00DC82)](https://nuxt.com)
+[![NuxtUI](https://img.shields.io/badge/Nuxt%20UI-002E3B?style=for-the-badge&logo=nuxtdotjs&logoColor=#00DC82)](https://ui.nuxt.com)
+[![Appwrite](https://img.shields.io/badge/Appwrite-%23FD366E.svg?style=for-the-badge&logo=appwrite&logoColor=white)](https://appwrite.io)
