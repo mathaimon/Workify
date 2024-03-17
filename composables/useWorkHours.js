@@ -32,7 +32,6 @@ export const useWorkHours = () =>{
     }
 
     const clockOut = async()=>{
-        console.log("clockout")
         await database.updateDocument(
             config.public.appwriteDatabaseId,
             config.public.appwriteCollectionWorkhoursId,
