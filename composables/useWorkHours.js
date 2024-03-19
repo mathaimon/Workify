@@ -1,5 +1,5 @@
 import {ID, Query } from "appwrite";
-import { database } from "~/appwrite";
+import { client, database } from "~/appwrite";
 
 const config = useRuntimeConfig()
 
@@ -7,6 +7,8 @@ const lastClockIn = ref()
 const isClockedIn = computed(()=>{
     return lastClockIn.value ? true : false
 })
+
+let subscription = null
 
 export const useWorkHours = () =>{
     const checkClockedIn = async()=>{
@@ -44,11 +46,26 @@ export const useWorkHours = () =>{
         await checkClockedIn()
     }
 
+    const setRealtimeSubscription = ()=>{
+        subscription =client.subscribe(`databases.${config.public.appwriteDatabaseId}.collections.${config.public.appwriteCollectionWorkhoursId}.documents`, response=>{
+            console.log(response)
+        })
+    } 
+
+    const unsubscribeRealtime = ()=>{
+        if (subscription){
+            subscription() 
+            subscription=null
+        }
+    }
+
     return{
         checkClockedIn,
         lastClockIn,
         clockIn,
-        clockOut
+        clockOut,
+        setRealtimeSubscription,
+        unsubscribeRealtime
     }
 }
 

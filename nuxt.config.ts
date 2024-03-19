@@ -7,8 +7,9 @@ export default defineNuxtConfig({
     public:{
       appwriteProjectId: "",
       appwriteApiEndpoint:"",
+      appwriteRealtimeEndpoint:"",
       appwriteDatabaseId:"",
-      appwriteCollectionWorkhoursId:""
+      appwriteCollectionWorkhoursId:"",
     }
   }
 })

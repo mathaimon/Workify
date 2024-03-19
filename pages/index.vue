@@ -32,10 +32,12 @@ const updateTime = () => {
 
 onMounted(() => {
     workHours.checkClockedIn()
+    workHours.setRealtimeSubscription()
 });
 
 onUnmounted(() => {
     if (interval) clearInterval(interval)
+    workHours.unsubscribeRealtime()
 });
 
 watchEffect(() => {
