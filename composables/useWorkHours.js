@@ -47,8 +47,8 @@ export const useWorkHours = () =>{
     }
 
     const setRealtimeSubscription = ()=>{
-        subscription =client.subscribe(`databases.${config.public.appwriteDatabaseId}.collections.${config.public.appwriteCollectionWorkhoursId}.documents`, response=>{
-            console.log(response)
+        subscription =client.subscribe(`databases.${config.public.appwriteDatabaseId}.collections.${config.public.appwriteCollectionWorkhoursId}.documents`,async ()=>{
+            await checkClockedIn();
         })
     } 
 
