@@ -2,7 +2,10 @@
 export default defineNuxtConfig({
   ssr: false, // for Appwrite to work properly
   devtools: { enabled: true },
-  modules: ['@nuxt/ui'],
+  modules: [
+    '@nuxt/ui', 
+    '@vueuse/nuxt'
+  ],
   runtimeConfig:{
     public:{
       appwriteProjectId: "",
