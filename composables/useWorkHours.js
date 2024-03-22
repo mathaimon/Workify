@@ -10,6 +10,8 @@ const isClockedIn = computed(()=>{
 
 let subscription = null
 
+const allWorkHours = ref()
+
 export const useWorkHours = () =>{
     const checkClockedIn = async()=>{
         const response = await database.listDocuments(
@@ -59,13 +61,27 @@ export const useWorkHours = () =>{
         }
     }
 
+    const listWorkHours=async()=>{
+        const response = await database.listDocuments(
+            config.public.appwriteDatabaseId,
+            config.public.appwriteCollectionWorkhoursId,
+            [
+                Query.orderDesc("clockedInTime"),
+                Query.equal("isClockedIn", false)
+            ]
+        )
+        allWorkHours.value=response.documents
+    }
+
     return{
         checkClockedIn,
         lastClockIn,
         clockIn,
         clockOut,
         setRealtimeSubscription,
-        unsubscribeRealtime
+        unsubscribeRealtime,
+        listWorkHours,
+        allWorkHours
     }
 }
 

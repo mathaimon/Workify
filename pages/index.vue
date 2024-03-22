@@ -90,5 +90,6 @@ const clockOut = () => {
                 </UButton>
             </div>
         </UCard>
+        <UButton to="/work-hours" variant="soft" size="xl" class="mt-10">Show Previous Work Hours</UButton>
     </div>
 </template>
