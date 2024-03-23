@@ -3,6 +3,7 @@ import { client, database } from "~/appwrite";
 
 const config = useRuntimeConfig()
 
+const isLoading = ref(true)
 const lastClockIn = ref()
 const isClockedIn = computed(()=>{
     return lastClockIn.value ? true : false
@@ -14,15 +15,18 @@ const allWorkHours = ref()
 
 export const useWorkHours = () =>{
     const checkClockedIn = async()=>{
+        isLoading.value = true
         const response = await database.listDocuments(
             config.public.appwriteDatabaseId,
             config.public.appwriteCollectionWorkhoursId,
             [Query.equal("isClockedIn", true)]
         )
         lastClockIn.value = response.documents[0]
+        isLoading.value = false
     }
 
     const clockIn = async(workHourData)=>{
+        isLoading.value = true
         await checkClockedIn()
         if(!isClockedIn.value){
             await database.createDocument(
@@ -33,9 +37,11 @@ export const useWorkHours = () =>{
             )
             await checkClockedIn()
         }
+        isLoading.value = false
     }
 
     const clockOut = async()=>{
+        isLoading.value = true
         await database.updateDocument(
             config.public.appwriteDatabaseId,
             config.public.appwriteCollectionWorkhoursId,
@@ -46,6 +52,7 @@ export const useWorkHours = () =>{
             }
         )
         await checkClockedIn()
+        isLoading.value = false
     }
 
     const setRealtimeSubscription = ()=>{
@@ -62,6 +69,7 @@ export const useWorkHours = () =>{
     }
 
     const listWorkHours=async()=>{
+        isLoading.value = true
         const response = await database.listDocuments(
             config.public.appwriteDatabaseId,
             config.public.appwriteCollectionWorkhoursId,
@@ -71,6 +79,7 @@ export const useWorkHours = () =>{
             ]
         )
         allWorkHours.value=response.documents
+        isLoading.value = false
     }
 
     return{
@@ -81,7 +90,8 @@ export const useWorkHours = () =>{
         setRealtimeSubscription,
         unsubscribeRealtime,
         listWorkHours,
-        allWorkHours
+        allWorkHours,
+        isLoading
     }
 }
 
