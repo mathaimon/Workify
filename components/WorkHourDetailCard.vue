@@ -9,8 +9,6 @@ const minutes = ref(0)
 
 onMounted(() => {
     const elapsedTime = new Date(props.clockedOutTime) - new Date(props.clockedInTime)
-    console.log(props.clockedInTime)
-    console.log(elapsedTime)
     hours.value = Math.floor(elapsedTime / (1000 * 60 * 60));
     minutes.value = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
 })
