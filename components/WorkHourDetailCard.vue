@@ -1,4 +1,5 @@
 <script setup>
+const router = useRouter()
 const props = defineProps({
     workHour: Object
 })
@@ -14,9 +15,13 @@ onMounted(() => {
 
 const formatedDate = useDateFormat(new Date(props.workHour.clockedInTime), "D MMM")
 const formatedWeekday = useDateFormat(new Date(props.workHour.clockedInTime), "dddd")
+
+const openRouteWithId = () => {
+    router.push({ name: 'work-hours-id', params: { id: props.workHour.$id } })
+}
 </script>
 <template>
-    <UCard class="w-full max-w-md">
+    <UCard class="w-full max-w-md" @click="openRouteWithId">
         <div class="flex justify-between items-center px-3">
             <div class="flex flex-col items-start">
                 <div class="text-xl font-semibold">{{ formatedDate }}</div>
