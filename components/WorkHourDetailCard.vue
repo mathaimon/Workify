@@ -21,7 +21,7 @@ const openRouteWithId = () => {
 }
 </script>
 <template>
-    <UCard class="w-full max-w-md" @click="openRouteWithId">
+    <UCard class="w-full max-w-md cursor-pointer" @click="openRouteWithId">
         <div class="flex justify-between items-center px-3">
             <div class="flex flex-col items-start">
                 <div class="text-xl font-semibold">{{ formatedDate }}</div>
