@@ -14,5 +14,10 @@ export default defineNuxtConfig({
       appwriteDatabaseId:"",
       appwriteCollectionWorkhoursId:"",
     }
+  },
+  app:{
+    head:{
+        title : "Workify"
+    }
   }
 })
