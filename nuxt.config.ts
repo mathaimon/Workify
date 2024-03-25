@@ -17,7 +17,11 @@ export default defineNuxtConfig({
   },
   app:{
     head:{
-        title : "Workify"
+        title : "Workify",
+        meta : [
+          {name: 'description', content: "Log, Visualize and Analyze Work Hours"}
+        ],
+        link: [{ rel: 'icon', type: 'image/png', href: '/favicon.ico' }]
     }
   }
 })
