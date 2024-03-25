@@ -12,6 +12,7 @@ const isClockedIn = computed(()=>{
 let subscription = null
 
 const allWorkHours = ref()
+const workHourDetails = ref()
 
 export const useWorkHours = () =>{
     const checkClockedIn = async()=>{
@@ -68,7 +69,7 @@ export const useWorkHours = () =>{
         }
     }
 
-    const listWorkHours=async()=>{
+    const listWorkHours = async()=>{
         isLoading.value = true
         const response = await database.listDocuments(
             config.public.appwriteDatabaseId,
@@ -82,6 +83,19 @@ export const useWorkHours = () =>{
         isLoading.value = false
     }
 
+    const getWorkHourDetails = async(workHourId)=>{
+        isLoading.value = true
+        const response = await database.listDocuments(
+            config.public.appwriteDatabaseId,
+            config.public.appwriteCollectionWorkhoursId,
+            [
+                Query.equal("$id", workHourId)
+            ]
+        )
+        workHourDetails.value = response.documents[0]
+        isLoading.value = false
+    }
+
     return{
         checkClockedIn,
         lastClockIn,
@@ -91,7 +105,9 @@ export const useWorkHours = () =>{
         unsubscribeRealtime,
         listWorkHours,
         allWorkHours,
-        isLoading
+        isLoading,
+        getWorkHourDetails,
+        workHourDetails
     }
 }
 
