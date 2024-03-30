@@ -20,7 +20,7 @@ export default defineNuxtConfig({
         title : "Workify",
         meta : [
           {name: 'description', content: "Log, Visualize and Analyze Work Hours"},
-          {name: 'og:image', content:'/og-image.png'}
+          {property: 'og:image', content:'https://workify-tracker.vercel.app/og-image.png'}
         ],
         link: [{ rel: 'icon', type: 'image/png', href: '/favicon.ico' }]
     }
