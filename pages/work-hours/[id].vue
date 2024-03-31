@@ -38,6 +38,15 @@ watchEffect(() => {
         clockedOutTimeRaw.value = workHourDetails.value.clockedOutTime
     }
 })
+
+const hours = ref(0)
+const minutes = ref(0)
+
+watchEffect(() => {
+    const elapsedTime = new Date(clockedOutTimeRaw.value) - new Date(clockedInTimeRaw.value)
+    hours.value = Math.floor(elapsedTime / (1000 * 60 * 60));
+    minutes.value = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+})
 </script>
 
 <template>
@@ -71,6 +80,11 @@ watchEffect(() => {
                 <div class="flex flex-col gap-2">
                     <div class="font-semibold opacity-70">Clocked Out Time</div>
                     <div class="text-primary">{{ clockedOutTime }}</div>
+                </div>
+                <UDivider />
+                <div class="flex flex-col gap-2">
+                    <div class="font-semibold opacity-70">Total Work Hours</div>
+                    <div class="text-primary">{{ hours }}:{{ minutes }} <span>Hrs</span></div>
                 </div>
             </div>
         </UCard>
