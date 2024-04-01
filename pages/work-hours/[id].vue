@@ -4,7 +4,7 @@ const workHours = useWorkHours()
 const workHourDetails = workHours.workHourDetails
 const showLoading = workHours.isLoading
 
-const isClockedIn = ref()
+const isClockedIn = ref(false)
 const workType = ref()
 const workTypes = [
     {
@@ -31,7 +31,7 @@ onMounted(() => {
 })
 
 watchEffect(() => {
-    if (!workHours.isLoading.value) {
+    if (!workHours.isLoading.value && workHourDetails.value) {
         isClockedIn.value = workHourDetails.value.isClockedIn
         workType.value = workHourDetails.value.workType
         clockedInTimeRaw.value = workHourDetails.value.clockedInTime
