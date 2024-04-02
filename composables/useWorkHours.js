@@ -96,6 +96,17 @@ export const useWorkHours = () =>{
         isLoading.value = false
     }
 
+    const deleteWorkHour = async(workHourId)=>{
+        isLoading.value = true
+        const response = await database.deleteDocument(
+            config.public.appwriteDatabaseId,
+            config.public.appwriteCollectionWorkhoursId,
+            workHourId
+        )
+        await listWorkHours()
+        isLoading.value = false
+    }
+
     return{
         checkClockedIn,
         lastClockIn,
@@ -107,7 +118,8 @@ export const useWorkHours = () =>{
         allWorkHours,
         isLoading,
         getWorkHourDetails,
-        workHourDetails
+        workHourDetails,
+        deleteWorkHour
     }
 }
 

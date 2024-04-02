@@ -1,5 +1,6 @@
 <script setup>
 const route = useRoute()
+const router = useRouter()
 const workHours = useWorkHours()
 const workHourDetails = workHours.workHourDetails
 const showLoading = workHours.isLoading
@@ -47,6 +48,14 @@ watchEffect(() => {
     hours.value = Math.floor(elapsedTime / (1000 * 60 * 60));
     minutes.value = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
 })
+
+const isOpenDeleteModal = ref(false)
+
+const deleteWorkHour = () => {
+    isOpenDeleteModal.value = false
+    workHours.deleteWorkHour(route.params.id)
+    router.push({ name: 'work-hours' })
+}
 </script>
 
 <template>
@@ -88,5 +97,21 @@ watchEffect(() => {
                 </div>
             </div>
         </UCard>
+        <div class="flex mt-5 gap-3">
+            <UButton color="pink" icon="i-ph-trash-duotone" size="xl" @click="isOpenDeleteModal = true"
+                label="Delete" />
+            <!-- <UButton icon="i-ph-pencil-duotone" size="xl">Edit</UButton> -->
+            <!-- <UButton color="blue" icon="i-ph-floppy-disk-duotone" size="xl">Save</UButton> -->
+        </div>
+        <UModal v-model="isOpenDeleteModal" :ui="{ container: 'items-center' }">
+            <div class="flex flex-col px-5 py-10 items-center gap-5">
+                <div class="text-center">Are you sure you want to delete Work Hour</div>
+                <div class="flex gap-5">
+                    <UButton color="pink" icon="i-ph-check-circle-duotone" size="xl" label="Yes"
+                        @click="deleteWorkHour" />
+                    <UButton icon="i-ph-x-circle-duotone" size="xl" label="No" @click="isOpenDeleteModal = false" />
+                </div>
+            </div>
+        </UModal>
     </div>
 </template>
