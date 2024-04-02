@@ -2,6 +2,7 @@
   <div>
     <NavBar />
     <NuxtPage class="p-3" />
+    <UNotifications :ui="{ container: 'items-center' }" />
   </div>
 </template>
 

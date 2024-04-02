@@ -1,6 +1,7 @@
 <script setup>
 const route = useRoute()
 const router = useRouter()
+const toast = useToast()
 const workHours = useWorkHours()
 const workHourDetails = workHours.workHourDetails
 const showLoading = workHours.isLoading
@@ -53,6 +54,11 @@ const isOpenDeleteModal = ref(false)
 
 const deleteWorkHour = () => {
     isOpenDeleteModal.value = false
+    toast.add({
+        description: 'Deleting Work Hour',
+        icon: 'i-ph-info-duotone',
+        timeout: 3000
+    })
     workHours.deleteWorkHour(route.params.id)
     router.push({ name: 'work-hours' })
 }
