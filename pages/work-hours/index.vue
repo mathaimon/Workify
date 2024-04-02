@@ -22,7 +22,7 @@ onMounted(() => {
                     </div>
                 </div>
             </UCard>
-            <WorkHourDetailCard v-for="workHour in allWorkHours" :workHour="workHour" />
+            <WorkHourDetailCard v-else v-for="workHour in allWorkHours" :workHour="workHour" />
         </div>
     </div>
 </template>
