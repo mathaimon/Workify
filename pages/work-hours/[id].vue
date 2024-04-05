@@ -89,7 +89,7 @@ const deleteWorkHour = () => {
                     <div class="font-semibold opacity-70">Clocked In Time</div>
                     <UPopover disabled overlay :popper="{ placement: 'bottom-start' }">
                         <UButton variant="link" size="xl"
-                            :ui="{ base: 'disabled:opacity-95', padding: 'p-0', variant: { link: 'hover:no-underline' } }"
+                            :ui="{ base: 'disabled:opacity-95', font: 'font-normal', padding: 'p-0', variant: { link: 'hover:no-underline' } }"
                             :label="format(clockedInTimeRaw, 'd MMM yyy, hh:mm a')" />
 
                         <template #panel>
@@ -102,7 +102,7 @@ const deleteWorkHour = () => {
                     <div class="font-semibold opacity-70">Clocked Out Time</div>
                     <UPopover disabled overlay :popper="{ placement: 'bottom-start' }">
                         <UButton variant="link" size="xl"
-                            :ui="{ base: 'disabled:opacity-95', padding: 'p-0', variant: { link: 'hover:no-underline' } }"
+                            :ui="{ base: 'disabled:opacity-95', font: 'font-normal', padding: 'p-0', variant: { link: 'hover:no-underline' } }"
                             :label="format(clockedOutTimeRaw, 'd MMM yyy, hh:mm a')" />
 
                         <template #panel>
