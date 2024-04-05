@@ -1,4 +1,5 @@
 <script setup>
+import { format } from 'date-fns'
 const route = useRoute()
 const router = useRouter()
 const toast = useToast()
@@ -25,9 +26,6 @@ const workTypes = [
 const clockedInTimeRaw = ref(new Date())
 const clockedOutTimeRaw = ref(new Date())
 
-const clockedInTime = useDateFormat(clockedInTimeRaw, "D MMM YYYY, h:mm A")
-const clockedOutTime = useDateFormat(clockedOutTimeRaw, "D MMM YYYY, h:mm A")
-
 onMounted(() => {
     workHours.getWorkHourDetails(route.params.id)
 })
@@ -36,8 +34,8 @@ watchEffect(() => {
     if (!workHours.isLoading.value && workHourDetails.value) {
         isClockedIn.value = workHourDetails.value.isClockedIn
         workType.value = workHourDetails.value.workType
-        clockedInTimeRaw.value = workHourDetails.value.clockedInTime
-        clockedOutTimeRaw.value = workHourDetails.value.clockedOutTime
+        clockedInTimeRaw.value = new Date(workHourDetails.value.clockedInTime)
+        clockedOutTimeRaw.value = new Date(workHourDetails.value.clockedOutTime)
     }
 })
 
@@ -89,12 +87,28 @@ const deleteWorkHour = () => {
                 <UDivider />
                 <div class="flex flex-col gap-2">
                     <div class="font-semibold opacity-70">Clocked In Time</div>
-                    <div class="text-primary">{{ clockedInTime }}</div>
+                    <UPopover disabled overlay :popper="{ placement: 'bottom-start' }">
+                        <UButton variant="link" size="xl"
+                            :ui="{ base: 'disabled:opacity-95', padding: 'p-0', variant: { link: 'hover:no-underline' } }"
+                            :label="format(clockedInTimeRaw, 'd MMM yyy, hh:mm a')" />
+
+                        <template #panel>
+                            <DatePicker v-model="clockedInTimeRaw" />
+                        </template>
+                    </UPopover>
                 </div>
                 <UDivider />
                 <div class="flex flex-col gap-2">
                     <div class="font-semibold opacity-70">Clocked Out Time</div>
-                    <div class="text-primary">{{ clockedOutTime }}</div>
+                    <UPopover disabled overlay :popper="{ placement: 'bottom-start' }">
+                        <UButton variant="link" size="xl"
+                            :ui="{ base: 'disabled:opacity-95', padding: 'p-0', variant: { link: 'hover:no-underline' } }"
+                            :label="format(clockedOutTimeRaw, 'd MMM yyy, hh:mm a')" />
+
+                        <template #panel>
+                            <DatePicker v-model="clockedOutTimeRaw" />
+                        </template>
+                    </UPopover>
                 </div>
                 <UDivider />
                 <div class="flex flex-col gap-2">
