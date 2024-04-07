@@ -29,18 +29,18 @@ onMounted(() => {
     workHours.getWorkHourDetails(route.params.id)
 })
 
-watchEffect(() => {
-    if (!workHours.isLoading.value && workHourDetails.value) {
-        updateDetailsFromWorkHour()
-    }
-})
-
 const updateDetailsFromWorkHour = () => {
     isClockedIn.value = workHourDetails.value.isClockedIn
     workType.value = workHourDetails.value.workType
     clockedInTimeRaw.value = new Date(workHourDetails.value.clockedInTime)
     clockedOutTimeRaw.value = new Date(workHourDetails.value.clockedOutTime)
 }
+
+watchEffect(() => {
+    if (!workHours.isLoading.value && workHourDetails.value) {
+        updateDetailsFromWorkHour()
+    }
+})
 
 const hours = ref(0)
 const minutes = ref(0)
