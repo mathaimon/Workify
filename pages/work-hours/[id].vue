@@ -99,7 +99,7 @@ const updateWorkHour = () => {
                 <UDivider />
                 <div class="flex flex-col gap-2">
                     <div class="font-semibold opacity-70">Clocked In Time</div>
-                    <UPopover :disabled="!enableEdit" overlay :popper="{ placement: 'bottom-start' }">
+                    <UPopover :disabled="!enableEdit" overlay :popper="{ offsetDistance: -50, }">
                         <UButton variant="link" size="xl"
                             :ui="{ base: 'disabled:opacity-95', font: 'font-normal', padding: 'p-0', variant: { link: 'hover:no-underline' } }"
                             :label="format(clockedInTimeRaw, 'd MMM yyy, hh:mm a')" />
@@ -112,7 +112,7 @@ const updateWorkHour = () => {
                 <UDivider />
                 <div class="flex flex-col gap-2">
                     <div class="font-semibold opacity-70">Clocked Out Time</div>
-                    <UPopover :disabled="!enableEdit" overlay :popper="{ placement: 'bottom-start' }">
+                    <UPopover :disabled="!enableEdit" overlay>
                         <UButton variant="link" size="xl"
                             :ui="{ base: 'disabled:opacity-95', font: 'font-normal', padding: 'p-0', variant: { link: 'hover:no-underline' } }"
                             :label="format(clockedOutTimeRaw, 'd MMM yyy, hh:mm a')" />
