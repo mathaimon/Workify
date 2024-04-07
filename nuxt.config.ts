@@ -4,7 +4,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@nuxt/ui', 
-    '@vueuse/nuxt'
+    '@vueuse/nuxt',
+    '@formkit/auto-animate/nuxt'
   ],
   runtimeConfig:{
     public:{
