@@ -107,6 +107,18 @@ export const useWorkHours = () =>{
         isLoading.value = false
     }
 
+    const updateWorkHour = async(workHourId, workHourData)=>{
+        isLoading.value = true
+        const response = await database.updateDocument(
+            config.public.appwriteDatabaseId,
+            config.public.appwriteCollectionWorkhoursId,
+            workHourId,
+            workHourData
+        )
+        await getWorkHourDetails()
+        isLoading.value = false
+    }
+
     return{
         checkClockedIn,
         lastClockIn,
@@ -119,7 +131,8 @@ export const useWorkHours = () =>{
         isLoading,
         getWorkHourDetails,
         workHourDetails,
-        deleteWorkHour
+        deleteWorkHour,
+        updateWorkHour
     }
 }
 

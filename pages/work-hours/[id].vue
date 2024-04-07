@@ -60,6 +60,25 @@ const deleteWorkHour = () => {
     workHours.deleteWorkHour(route.params.id)
     router.push({ name: 'work-hours' })
 }
+
+const enableEdit = ref(false)
+
+const updateWorkHour = () => {
+    enableEdit.value = false
+    toast.add({
+        description: 'Updating Work Hour',
+        icon: 'i-ph-info-duotone',
+        timeout: 3000
+    })
+    workHours.updateWorkHour(
+        route.params.id,
+        {
+            workType: workType.value,
+            clockedInTime: clockedInTimeRaw.value.toISOString(),
+            clockedOutTime: clockedOutTimeRaw.value.toISOString()
+        }
+    )
+}
 </script>
 
 <template>
@@ -74,20 +93,20 @@ const deleteWorkHour = () => {
                         <div>Fetching Data</div>
                     </div>
                 </div>
-                <div class="flex gap-5">
+                <!-- <div class="flex gap-5">
                     <div class="font-semibold opacity-70">Clocked In</div>
-                    <UToggle disabled size="lg" v-model="isClockedIn" />
+                    <UToggle :disabled="!enableEdit" size="lg" v-model="isClockedIn" />
                 </div>
-                <UDivider />
+                <UDivider /> -->
                 <div class="flex flex-col gap-2">
                     <div class="font-semibold opacity-70">Work Type</div>
-                    <USelect disabled placeholder="Work Type" :options="workTypes" v-model="workType" color="primary"
-                        variant="outline" size="xl" />
+                    <USelect :disabled="!enableEdit" placeholder="Work Type" :options="workTypes" v-model="workType"
+                        color="primary" variant="outline" size="xl" />
                 </div>
                 <UDivider />
                 <div class="flex flex-col gap-2">
                     <div class="font-semibold opacity-70">Clocked In Time</div>
-                    <UPopover disabled overlay :popper="{ placement: 'bottom-start' }">
+                    <UPopover :disabled="!enableEdit" overlay :popper="{ placement: 'bottom-start' }">
                         <UButton variant="link" size="xl"
                             :ui="{ base: 'disabled:opacity-95', font: 'font-normal', padding: 'p-0', variant: { link: 'hover:no-underline' } }"
                             :label="format(clockedInTimeRaw, 'd MMM yyy, hh:mm a')" />
@@ -100,7 +119,7 @@ const deleteWorkHour = () => {
                 <UDivider />
                 <div class="flex flex-col gap-2">
                     <div class="font-semibold opacity-70">Clocked Out Time</div>
-                    <UPopover disabled overlay :popper="{ placement: 'bottom-start' }">
+                    <UPopover :disabled="!enableEdit" overlay :popper="{ placement: 'bottom-start' }">
                         <UButton variant="link" size="xl"
                             :ui="{ base: 'disabled:opacity-95', font: 'font-normal', padding: 'p-0', variant: { link: 'hover:no-underline' } }"
                             :label="format(clockedOutTimeRaw, 'd MMM yyy, hh:mm a')" />
@@ -118,10 +137,16 @@ const deleteWorkHour = () => {
             </div>
         </UCard>
         <div class="flex mt-5 gap-3">
-            <UButton color="pink" icon="i-ph-trash-duotone" size="xl" @click="isOpenDeleteModal = true"
-                label="Delete" />
-            <!-- <UButton icon="i-ph-pencil-duotone" size="xl">Edit</UButton> -->
-            <!-- <UButton color="blue" icon="i-ph-floppy-disk-duotone" size="xl">Save</UButton> -->
+            <UButton v-show="!enableEdit" color="pink" icon="i-ph-trash-duotone" size="xl"
+                @click="isOpenDeleteModal = true" label="Delete" />
+            <UButton v-show="!enableEdit" icon="i-ph-pencil-duotone" size="xl" @click="enableEdit = true">Edit</UButton>
+            <UButton v-show="enableEdit" color="rose" icon="i-ph-x-circle-duotone" size="xl"
+                @click="enableEdit = false">
+                Cancel
+            </UButton>
+            <UButton v-show="enableEdit" color="blue" icon="i-ph-floppy-disk-duotone" size="xl" @click="updateWorkHour">
+                Save
+            </UButton>
         </div>
         <UModal v-model="isOpenDeleteModal" :ui="{ container: 'items-center' }">
             <div class="flex flex-col px-5 py-10 items-center gap-5">
