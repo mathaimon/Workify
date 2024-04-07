@@ -31,12 +31,16 @@ onMounted(() => {
 
 watchEffect(() => {
     if (!workHours.isLoading.value && workHourDetails.value) {
-        isClockedIn.value = workHourDetails.value.isClockedIn
-        workType.value = workHourDetails.value.workType
-        clockedInTimeRaw.value = new Date(workHourDetails.value.clockedInTime)
-        clockedOutTimeRaw.value = new Date(workHourDetails.value.clockedOutTime)
+        updateDetailsFromWorkHour()
     }
 })
+
+const updateDetailsFromWorkHour = () => {
+    isClockedIn.value = workHourDetails.value.isClockedIn
+    workType.value = workHourDetails.value.workType
+    clockedInTimeRaw.value = new Date(workHourDetails.value.clockedInTime)
+    clockedOutTimeRaw.value = new Date(workHourDetails.value.clockedOutTime)
+}
 
 const hours = ref(0)
 const minutes = ref(0)
@@ -77,6 +81,11 @@ const updateWorkHour = () => {
             clockedOutTime: clockedOutTimeRaw.value.toISOString()
         }
     )
+}
+
+const handleCancel = () => {
+    enableEdit.value = false
+    updateDetailsFromWorkHour()
 }
 </script>
 
@@ -133,8 +142,7 @@ const updateWorkHour = () => {
             <UButton v-show="!enableEdit" color="pink" icon="i-ph-trash-duotone" size="xl"
                 @click="isOpenDeleteModal = true" label="Delete" />
             <UButton v-show="!enableEdit" icon="i-ph-pencil-duotone" size="xl" @click="enableEdit = true">Edit</UButton>
-            <UButton v-show="enableEdit" color="rose" icon="i-ph-x-circle-duotone" size="xl"
-                @click="enableEdit = false">
+            <UButton v-show="enableEdit" color="rose" icon="i-ph-x-circle-duotone" size="xl" @click="handleCancel">
                 Cancel
             </UButton>
             <UButton v-show="enableEdit" color="blue" icon="i-ph-floppy-disk-duotone" size="xl" @click="updateWorkHour">
