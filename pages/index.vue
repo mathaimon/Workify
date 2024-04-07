@@ -68,7 +68,7 @@ const clockOut = () => {
     <div class="flex flex-col items-center justify-center pt-5">
         <h1 class="text-3xl font-semibold text-center">Work Hour Tracker</h1>
         <UCard class="w-full max-w-md mt-10">
-            <div class="relative flex flex-col gap-4">
+            <div v-auto-animate class="relative flex flex-col gap-4">
                 <CardLoader />
                 <div v-if="isClockedIn" class="block">
                     <div class="text-5xl font-semibold text-center text-primary-700"><span v-show="hours > 0">{{ hours
