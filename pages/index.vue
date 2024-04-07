@@ -22,8 +22,6 @@ const minutes = ref(0);
 const seconds = ref(0);
 let interval = null;
 
-const showLoading = workHours.isLoading
-
 const updateTime = () => {
     const now = new Date();
     const elapsedTime = now - startTime.value
@@ -71,13 +69,7 @@ const clockOut = () => {
         <h1 class="text-3xl font-semibold text-center">Work Hour Tracker</h1>
         <UCard class="w-full max-w-md mt-10">
             <div class="relative flex flex-col gap-4">
-                <div v-if="showLoading"
-                    class="absolute bg-white dark:bg-opacity-60 dark:bg-gray-900 bg-opacity-50 p-4 z-50 size-full flex items-center justify-center">
-                    <div class="flex items-center justify-center gap-3">
-                        <Icon name="ph:circle-notch-duotone" class="text-primary animate-spin" />
-                        <div>Fetching Data</div>
-                    </div>
-                </div>
+                <CardLoader />
                 <div v-if="isClockedIn" class="block">
                     <div class="text-5xl font-semibold text-center text-primary-700"><span v-show="hours > 0">{{ hours
                             }}:</span>{{ minutes }}:{{

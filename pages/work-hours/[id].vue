@@ -5,7 +5,6 @@ const router = useRouter()
 const toast = useToast()
 const workHours = useWorkHours()
 const workHourDetails = workHours.workHourDetails
-const showLoading = workHours.isLoading
 
 const isClockedIn = ref(false)
 const workType = ref()
@@ -86,13 +85,7 @@ const updateWorkHour = () => {
         <h1 class="text-3xl font-semibold text-center">Work Hour Details</h1>
         <UCard class="w-full max-w-md mt-10">
             <div class="relative flex flex-col gap-5">
-                <div v-if="showLoading"
-                    class="absolute bg-white dark:bg-opacity-60 dark:bg-gray-900 bg-opacity-50 p-4 z-50 size-full flex items-center justify-center">
-                    <div class="flex items-center justify-center gap-3">
-                        <Icon name="ph:circle-notch-duotone" class="text-primary animate-spin" />
-                        <div>Fetching Data</div>
-                    </div>
-                </div>
+                <CardLoader />
                 <!-- <div class="flex gap-5">
                     <div class="font-semibold opacity-70">Clocked In</div>
                     <UToggle :disabled="!enableEdit" size="lg" v-model="isClockedIn" />
